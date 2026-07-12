@@ -5,5 +5,7 @@ from users.serializers import UserSerializer
 
 
 class UserUpdateAPIView(generics.UpdateAPIView):
+    """Контроллер API редактирования существующего пользователя"""
+
     queryset = User.objects.all()
     serializer_class = UserSerializer

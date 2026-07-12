@@ -4,6 +4,10 @@ from users.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """Сериализатор модели пользователя"""
+
     class Meta:
+        """Метакласс сериализатора пользователя"""
+
         model = User
         fields = "__all__"
