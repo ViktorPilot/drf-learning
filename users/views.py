@@ -9,3 +9,8 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class UserCreateAPIView(generics.CreateAPIView):
+    """Контроллер API создания нового пользователя"""
+
+    serializer_class = UserSerializer
