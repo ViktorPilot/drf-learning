@@ -1,0 +1,53 @@
+[
+{
+    "model": "materials.course",
+    "pk": 3,
+    "fields": {
+        "title": "курс 1",
+        "image": "",
+        "description": "какой то курс 1"
+    }
+},
+{
+    "model": "materials.course",
+    "pk": 4,
+    "fields": {
+        "title": "курс 4",
+        "image": "",
+        "description": "какой то курс 4"
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 4,
+    "fields": {
+        "title": "лекция 1",
+        "description": "лекция 1 в 4 курс",
+        "image": "",
+        "video": null,
+        "course": 4
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 5,
+    "fields": {
+        "title": "лекция 2",
+        "description": "лекция 2 в 4 курс",
+        "image": "",
+        "video": null,
+        "course": 4
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 6,
+    "fields": {
+        "title": "лекция 1",
+        "description": "лекция 1 в 3 курс",
+        "image": "",
+        "video": null,
+        "course": 3
+    }
+}
+]
