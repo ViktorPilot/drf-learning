@@ -26,7 +26,9 @@ class Lesson(models.Model):
     description = models.TextField(blank=True, null=True, verbose_name="Описание урока")
     image = models.ImageField(upload_to="materials/image/", blank=True, null=True, verbose_name="Превью урока")
     video = models.CharField(max_length=150, blank=True, null=True, verbose_name="Описание урока")
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL, verbose_name="курс", blank=True, null=True, related_name="lessons")
+    course = models.ForeignKey(
+        Course, on_delete=models.SET_NULL, verbose_name="курс", blank=True, null=True, related_name="lessons"
+    )
 
     def __str__(self):
         """Магический метод, возвращает название урока"""

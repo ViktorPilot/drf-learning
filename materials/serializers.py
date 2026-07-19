@@ -15,6 +15,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     """Сериализатор модели курса"""
+
     quantity_lessons = serializers.SerializerMethodField()
     lessons = LessonSerializer(many=True, read_only=True)
 
