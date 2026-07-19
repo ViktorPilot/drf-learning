@@ -28,9 +28,9 @@ class User(AbstractBaseUser):
         verbose_name_plural = "Пользователи"
 
 class Payments(models.Model):
-    """Класс создания платежа"""
+    """Класс создания экземпляра платежа"""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Пользователь")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Пользователь", related_name="payments")
     date = models.DateField(blank=True, null=True, verbose_name="Дата оплаты")
     bought_course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Оплаченный курс")
     bought_lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Оплаченная лекция")
@@ -38,11 +38,11 @@ class Payments(models.Model):
     type_payment = models.CharField(max_length=100, choices=[("cash", "наличные"), ("transfer", "перевод")], blank=True, null=True, verbose_name="Способ оплаты")
 
     def __str__(self):
-        """Магический метод, возвращает email пользователя"""
-        return self.payment
+        """Магический метод, возвращает данные о платеже пользователя"""
+        return f"{self.user} - {self.payment}: {self.date}"
 
     class Meta:
-        """Метакласс модели пользователя"""
+        """Метакласс модели платежа"""
 
         verbose_name = "Платеж"
         verbose_name_plural = "Платежи"
