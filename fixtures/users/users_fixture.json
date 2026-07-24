@@ -1,0 +1,26 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "Q2w3e4r5t6y7888",
+        "last_login": null,
+        "email": "user1@rambler.ru",
+        "phone": null,
+        "city": null,
+        "avatar": ""
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "Q2w3e4r5t6",
+        "last_login": null,
+        "email": "vvvv@mail.com",
+        "phone": 555555,
+        "city": "Moscow",
+        "avatar": ""
+    }
+}
+]
