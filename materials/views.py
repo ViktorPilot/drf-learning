@@ -2,6 +2,7 @@ from rest_framework import generics, viewsets
 
 from materials.models import Course, Lesson
 from materials.serializers import CourseSerializer, LessonSerializer
+from users.permissions import IsModerators
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -9,6 +10,13 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
+
+    def get_permissions(self):
+        if self.action in ['create', 'destroy']:
+            self.permission_classes = [~IsModerators]
+        elif self.action in ['update', 'retrieve']:
+            self.permission_classes = [IsModerators]
+        return super().get_permissions()
 
 
 class LessonListAPIView(generics.ListAPIView):

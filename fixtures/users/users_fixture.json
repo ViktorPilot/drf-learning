@@ -3,7 +3,7 @@
     "model": "users.user",
     "pk": 1,
     "fields": {
-        "password": "Q2w3e4r5t6y7888",
+        "password": "Q2w3e4r5t6y7u8!@",
         "last_login": null,
         "email": "user1@rambler.ru",
         "phone": null,
