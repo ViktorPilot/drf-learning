@@ -5,7 +5,8 @@
     "fields": {
         "title": "курс 2",
         "image": "",
-        "description": "какой то курс 1"
+        "description": "какой то курс 1",
+        "owner": 2
     }
 },
 {
@@ -14,7 +15,8 @@
     "fields": {
         "title": "курс 4",
         "image": "",
-        "description": "какой то курс 4"
+        "description": "какой то курс 4",
+        "owner": 2
     }
 },
 {
@@ -25,7 +27,8 @@
         "description": "лекция 1 в 4 курс",
         "image": "",
         "video": null,
-        "course": 4
+        "course": 4,
+        "owner": 2
     }
 },
 {
@@ -36,7 +39,8 @@
         "description": "лекция 2 в 4 курс",
         "image": "",
         "video": null,
-        "course": 4
+        "course": 4,
+        "owner": 2
     }
 },
 {
@@ -47,7 +51,8 @@
         "description": "лекция 1 в 3 курс",
         "image": "",
         "video": null,
-        "course": 3
+        "course": 3,
+        "owner": 2
     }
 }
 ]

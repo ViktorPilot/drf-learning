@@ -7,6 +7,7 @@ class Course(models.Model):
     title = models.CharField(unique=True, max_length=150, verbose_name="Название курса")
     image = models.ImageField(upload_to="materials/image/", blank=True, null=True, verbose_name="Превью курса")
     description = models.TextField(blank=True, null=True, verbose_name="Описание курса")
+    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='Владелец', null=True, blank=True)
 
     def __str__(self):
         """Магический метод, возвращает название курса"""
@@ -29,6 +30,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(
         Course, on_delete=models.SET_NULL, verbose_name="курс", blank=True, null=True, related_name="lessons"
     )
+    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='Владелец', null=True, blank=True)
 
     def __str__(self):
         """Магический метод, возвращает название урока"""
