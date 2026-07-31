@@ -3,7 +3,7 @@
     "model": "materials.course",
     "pk": 3,
     "fields": {
-        "title": "курс 1",
+        "title": "курс 2",
         "image": "",
         "description": "какой то курс 1"
     }
