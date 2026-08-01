@@ -1,4 +1,3 @@
-from mypy.dmypy.client import request
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 
@@ -20,11 +19,12 @@ class CourseViewSet(viewsets.ModelViewSet):
         course.save()
 
     def get_permissions(self):
-        if self.action == 'create':
+        """Метод назначает права доступа к 'actions' в зависимости от роли пользователя"""
+        if self.action == "create":
             self.permission_classes = [IsAuthenticated, ~IsModerators]
-        elif self.action == 'destroy':
+        elif self.action == "destroy":
             self.permission_classes = [IsAuthenticated, ~IsModerators & IsOwner]
-        elif self.action in ['list', 'update', 'retrieve', 'partial_update']:
+        elif self.action in ["list", "update", "retrieve", "partial_update"]:
             self.permission_classes = [IsAuthenticated, IsModerators | IsOwner]
         return super().get_permissions()
 

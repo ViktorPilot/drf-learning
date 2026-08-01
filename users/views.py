@@ -36,6 +36,7 @@ class UserCreateAPIView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
 
     def perform_create(self, serializer):
+        """Метод устанавливает статус пользователя активным и хэширует пароль перед сохранением"""
         user = serializer.save(is_active=True)
         user.set_password(user.password)
         user.save()
