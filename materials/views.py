@@ -14,9 +14,14 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Метод добавляет авторизованного пользователя в поле владельца курса"""
-        course = serializer.save()
-        course.owner = self.request.user
-        course.save()
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        """Метод возвращает отфильтрованные курсы в зависимости от статуса пользователя"""
+        user = self.request.user
+        if user.groups.filter(name="moderators").exists():
+            return Course.objects.all()
+        return Course.objects.filter(owner=user)
 
     def get_permissions(self):
         """Метод назначает права доступа к 'actions' в зависимости от роли пользователя"""
@@ -29,7 +34,18 @@ class CourseViewSet(viewsets.ModelViewSet):
         return super().get_permissions()
 
 
-class LessonListAPIView(generics.ListAPIView):
+class LessonQuerysetMixin:
+    """Миксин для фильтрации лекций в зависимости от статуса пользователя"""
+
+    def get_queryset(self):
+        """Метод возвращает отфильтрованные лекции в зависимости от статуса пользователя"""
+        user = self.request.user
+        if user.groups.filter(name="moderators").exists():
+            return Lesson.objects.all()
+        return Lesson.objects.filter(owner=user)
+
+
+class LessonListAPIView(LessonQuerysetMixin, generics.ListAPIView):
     """Контроллер API списка уроков"""
 
     serializer_class = LessonSerializer
@@ -37,7 +53,7 @@ class LessonListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticated, IsModerators | IsOwner]
 
 
-class LessonUpdateAPIView(generics.UpdateAPIView):
+class LessonUpdateAPIView(LessonQuerysetMixin, generics.UpdateAPIView):
     """Контроллер API редактирования существующего урока"""
 
     serializer_class = LessonSerializer
@@ -45,7 +61,7 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated, IsModerators | IsOwner]
 
 
-class LessonRetrieveAPIView(generics.RetrieveAPIView):
+class LessonRetrieveAPIView(LessonQuerysetMixin, generics.RetrieveAPIView):
     """Контроллер API данных урока"""
 
     serializer_class = LessonSerializer
@@ -66,7 +82,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
         lesson.save()
 
 
-class LessonDestroyAPIView(generics.DestroyAPIView):
+class LessonDestroyAPIView(LessonQuerysetMixin, generics.DestroyAPIView):
     """Контроллер API удаления существующего урока"""
 
     serializer_class = LessonSerializer
