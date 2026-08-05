@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from materials.models import Course, Lesson
+from materials.models import Course, Lesson, Subscription
 from materials.validators import check_not_youtube
 
 
@@ -30,3 +30,12 @@ class CourseSerializer(serializers.ModelSerializer):
 
         model = Course
         fields = "__all__"
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    """Сериализатор модели подписки"""
+
+    class Meta:
+        """Метакласс сериализатора подписки"""
+        model = Subscription
+        fields = ['user', 'course']
