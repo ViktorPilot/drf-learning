@@ -38,12 +38,6 @@ class CourseViewSet(viewsets.ModelViewSet):
             self.permission_classes = [IsAuthenticated, IsModerators | IsOwner]
         return super().get_permissions()
 
-    def get(self, request):
-        """Пагинатор для постраничного вывода курсов"""
-        queryset = Course.objects.all()
-        paginated_queryset = self.paginate_queryset(queryset)
-        serializer = CourseSerializer(paginated_queryset, many=True)
-        return self.get_paginated_response(serializer.data)
 
 class LessonQuerysetMixin:
     """Миксин для фильтрации лекций в зависимости от статуса пользователя"""
@@ -64,12 +58,6 @@ class LessonListAPIView(LessonQuerysetMixin, generics.ListAPIView):
     permission_classes = [IsAuthenticated, IsModerators | IsOwner]
     pagination_class = MyPagination
 
-    def get(self, request):
-        """Пагинатор для постраничного вывода уроков"""
-        queryset = Lesson.objects.all()
-        paginated_queryset = self.paginate_queryset(queryset)
-        serializer = LessonSerializer(paginated_queryset, many=True)
-        return self.get_paginated_response(serializer.data)
 
 class LessonUpdateAPIView(LessonQuerysetMixin, generics.UpdateAPIView):
     """Контроллер API редактирования существующего урока"""
