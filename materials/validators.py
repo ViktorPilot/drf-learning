@@ -1,7 +1,7 @@
+import re
+
 from rest_framework import serializers
 
-
-import re
 
 def check_not_youtube(value):
     youtube = "https://youtube.com/"

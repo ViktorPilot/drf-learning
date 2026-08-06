@@ -6,6 +6,7 @@ from materials.validators import check_not_youtube
 
 class LessonSerializer(serializers.ModelSerializer):
     """Сериализатор модели урока"""
+
     video = serializers.URLField(validators=[check_not_youtube])
 
     class Meta:
@@ -35,13 +36,15 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_is_subscribed(self, obj):
         """Метод возвращает данные подписан ли текущий пользователь на курс"""
-        user = self.context['request'].user
+        user = self.context["request"].user
         return Subscription.objects.filter(user=user, course=obj).exists()
+
 
 class SubscriptionSerializer(serializers.ModelSerializer):
     """Сериализатор модели подписки"""
 
     class Meta:
         """Метакласс сериализатора подписки"""
+
         model = Subscription
-        fields = ['user', 'course']
+        fields = ["user", "course"]

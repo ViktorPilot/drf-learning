@@ -47,7 +47,9 @@ class Lesson(models.Model):
 class Subscription(models.Model):
     """Класс создания экземпляра подписки"""
 
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Пользователь", null=True, blank=True)
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, verbose_name="Пользователь", null=True, blank=True
+    )
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс", null=True, blank=True)
 
     class Meta:
