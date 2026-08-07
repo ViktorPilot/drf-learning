@@ -1,7 +1,11 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from materials.models import Course, Lesson
+from materials.models import Course, Lesson, Subscription
+from materials.paginators import MyPagination
 from materials.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModerators, IsOwner
 
@@ -11,6 +15,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
+    pagination_class = MyPagination
 
     def perform_create(self, serializer):
         """Метод добавляет авторизованного пользователя в поле владельца курса"""
@@ -51,6 +56,7 @@ class LessonListAPIView(LessonQuerysetMixin, generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsModerators | IsOwner]
+    pagination_class = MyPagination
 
 
 class LessonUpdateAPIView(LessonQuerysetMixin, generics.UpdateAPIView):
@@ -88,3 +94,22 @@ class LessonDestroyAPIView(LessonQuerysetMixin, generics.DestroyAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, ~IsModerators & IsOwner]
+
+
+class SubscriptionAPIView(APIView):
+    """Контроллер API создания/удаления подписки"""
+
+    def post(self, request, *args, **kwargs):
+        """Метод добавления/удаления подписки"""
+        user = request.user
+        course_id = request.data.get("course_id")
+        course_item = get_object_or_404(Course, pk=course_id)
+        subs_item = Subscription.objects.filter(user=user, course=course_item)
+        if subs_item.exists():
+            subs_item.delete()
+            message = "подписка удалена"
+        else:
+            Subscription.objects.create(user=user, course=course_item)
+            message = "подписка добавлена"
+
+        return Response({"message": message})

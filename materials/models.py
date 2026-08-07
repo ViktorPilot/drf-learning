@@ -8,6 +8,7 @@ class Course(models.Model):
     image = models.ImageField(upload_to="materials/image/", blank=True, null=True, verbose_name="Превью курса")
     description = models.TextField(blank=True, null=True, verbose_name="Описание курса")
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Владелец", null=True, blank=True)
+    video = models.CharField(max_length=150, blank=True, null=True, verbose_name="Видео урока")
 
     def __str__(self):
         """Магический метод, возвращает название курса"""
@@ -26,7 +27,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=150, verbose_name="Название урока")
     description = models.TextField(blank=True, null=True, verbose_name="Описание урока")
     image = models.ImageField(upload_to="materials/image/", blank=True, null=True, verbose_name="Превью урока")
-    video = models.CharField(max_length=150, blank=True, null=True, verbose_name="Описание урока")
+    video = models.CharField(max_length=150, blank=True, null=True, verbose_name="Видео урока")
     course = models.ForeignKey(
         Course, on_delete=models.SET_NULL, verbose_name="курс", blank=True, null=True, related_name="lessons"
     )
@@ -41,3 +42,18 @@ class Lesson(models.Model):
 
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
+
+
+class Subscription(models.Model):
+    """Класс создания экземпляра подписки"""
+
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, verbose_name="Пользователь", null=True, blank=True
+    )
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс", null=True, blank=True)
+
+    class Meta:
+        """Метакласс модели подписки"""
+
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
