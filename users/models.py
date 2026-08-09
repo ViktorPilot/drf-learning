@@ -49,6 +49,8 @@ class Payments(models.Model):
         null=True,
         verbose_name="Способ оплаты",
     )
+    session_id = models.CharField(max_length=800, blank=True, null=True, verbose_name="id сессии")
+    link = models.URLField(max_length=800, blank=True, null=True, verbose_name="Ссылка на оплату")
 
     def __str__(self):
         """Магический метод, возвращает данные о платеже пользователя"""
