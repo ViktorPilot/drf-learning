@@ -44,8 +44,8 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         """Метод для отправки письма подписчикам при частичном обновлении курса"""
-        kwargs['partial'] = True
-        course_id = kwargs.get('pk')
+        kwargs["partial"] = True
+        course_id = kwargs.get("pk")
         payments_course = Payments.objects.filter(bought_course=course_id)
         recipient_list = list(set(i.user.email for i in payments_course))
         datetime_now = datetime.now(timezone.utc)

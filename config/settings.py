@@ -110,9 +110,9 @@ MEDIA_ROOT = BASE_DIR / "static"
 AUTH_USER_MODEL = "users.User"
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': os.getenv("LOCATION"),
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv("LOCATION"),
     }
 }
 
@@ -125,9 +125,9 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers.DatabaseScheduler"
 
 CELERY_BEAT_SCHEDULE = {
-    'blocked_users': {
-        'task': 'users.tasks.blocked_users',
-        'schedule': timedelta(days=1),
+    "blocked_users": {
+        "task": "users.tasks.blocked_users",
+        "schedule": timedelta(days=1),
     },
 }
 
