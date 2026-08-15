@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 from materials.models import Course, Lesson, Subscription
 from materials.paginators import MyPagination
 from materials.serializers import CourseSerializer, LessonSerializer
+from materials.tasks import send_update_msg
+from users.models import Payments
 from users.permissions import IsModerators, IsOwner
 
 
@@ -37,6 +39,25 @@ class CourseViewSet(viewsets.ModelViewSet):
         elif self.action in ["list", "update", "retrieve", "partial_update"]:
             self.permission_classes = [IsAuthenticated, IsModerators | IsOwner]
         return super().get_permissions()
+
+    def partial_update(self, request, *args, **kwargs):
+        """Метод для отправки письма подписчикам при частичном обновлении курса"""
+        kwargs['partial'] = True
+        course_id = kwargs.get('pk')
+        payments_course = Payments.objects.filter(bought_course=course_id)
+        recipient_list = list(set(i.user.email for i in payments_course))
+        message = f"Курс {course_id} обновлен"
+        send_update_msg.delay(message, recipient_list)
+        return self.update(request, *args, **kwargs)
+
+    def perform_update(self, serializer):
+        """Метод для отправки письма подписчикам при полном обновлении курса"""
+        serializer.save()
+        course_id = serializer.instance.pk
+        payments_course = Payments.objects.filter(bought_course=course_id)
+        recipient_list = list(set(i.user.email for i in payments_course))
+        message = f"Курс {course_id} обновлен"
+        send_update_msg.delay(message, recipient_list)
 
 
 class LessonQuerysetMixin:
