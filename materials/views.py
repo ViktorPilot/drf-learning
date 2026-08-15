@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -46,8 +48,14 @@ class CourseViewSet(viewsets.ModelViewSet):
         course_id = kwargs.get('pk')
         payments_course = Payments.objects.filter(bought_course=course_id)
         recipient_list = list(set(i.user.email for i in payments_course))
+        datetime_now = datetime.now(timezone.utc)
         message = f"Курс {course_id} обновлен"
-        send_update_msg.delay(message, recipient_list)
+        last_datetime_update = Course.objects.get(pk=course_id).update_datetime
+        if datetime_now - last_datetime_update > timedelta(hours=4):
+            send_update_msg.delay(message, recipient_list)
+        instance = self.get_object()
+        instance.update_datetime = datetime_now
+        instance.save()
         return self.update(request, *args, **kwargs)
 
     def perform_update(self, serializer):
@@ -56,8 +64,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         course_id = serializer.instance.pk
         payments_course = Payments.objects.filter(bought_course=course_id)
         recipient_list = list(set(i.user.email for i in payments_course))
+        datetime_now = datetime.now(timezone.utc)
         message = f"Курс {course_id} обновлен"
-        send_update_msg.delay(message, recipient_list)
+        last_datetime_update = Course.objects.get(pk=course_id).update_datetime
+        if datetime_now - last_datetime_update > timedelta(hours=4):
+            send_update_msg.delay(message, recipient_list)
+        serializer.instance.update_datetime = datetime_now
+        serializer.save()
 
 
 class LessonQuerysetMixin:

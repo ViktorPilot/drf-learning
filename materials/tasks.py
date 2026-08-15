@@ -6,6 +6,7 @@ from config.settings import EMAIL_HOST_USER
 
 @shared_task
 def send_update_msg(message, recipient_list):
+    """Метод отправки сообщений"""
     send_mail(
         subject="Обновление курса",
         message=message,

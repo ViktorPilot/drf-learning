@@ -9,6 +9,7 @@ class Course(models.Model):
     description = models.TextField(blank=True, null=True, verbose_name="Описание курса")
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Владелец", null=True, blank=True)
     video = models.CharField(max_length=150, blank=True, null=True, verbose_name="Видео урока")
+    update_datetime = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Дата обновления курса")
 
     def __str__(self):
         """Магический метод, возвращает название курса"""

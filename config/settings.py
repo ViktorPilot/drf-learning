@@ -1,7 +1,7 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
-from django.conf.global_settings import DEFAULT_FROM_EMAIL, SERVER_EMAIL
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework_simplejwt",
     "drf_yasg",
+    "django_celery_beat",
     "users",
     "materials",
 ]
@@ -115,11 +116,20 @@ CACHES = {
     }
 }
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/1'
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers.DatabaseScheduler"
+
+CELERY_BEAT_SCHEDULE = {
+    'blocked_users': {
+        'task': 'users.tasks.blocked_users',
+        'schedule': timedelta(days=1),
+    },
+}
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
@@ -130,3 +140,7 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+SIMPLE_JWT = {
+    "UPDATE_LAST_LOGIN": True,
+}
