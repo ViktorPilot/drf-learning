@@ -1,4 +1,4 @@
-# Проект drf_learning
+ # Проект drf_learning
 
 ## Описание:
 
@@ -17,6 +17,7 @@
 + ipython 9.15.0
 + drf-yasg 1.21.15
 + stripe 15.4.0
++ Docker / Docker Compose
 Все контроллеры имеют способ определения и обработки представлений в DRF с помощью классов(метод CBV).
 
 ## Установка:
@@ -45,6 +46,25 @@
 - `python manage.py loaddata fixtures/users/payments_fixture.json `
 - `python manage.py loaddata fixtures/users/users_fixture.json`
 - `python manage.py loaddata fixtures/users/groups.json`
+
+## При работе через DOCKER:
+
+1. Перед запуском установите Docker Desktop по ссылке `https://www.docker.com/products/docker-desktop` для WINDOWS, 
+`https://docs.docker.com/engine/install/ubuntu/` для Linux.
+2. Клонируйте репозиторий:
+    ```
+     https://github.com/ViktorPilot/drf-learning.git
+    ```
+3. Создайте и заполните файл .env.
+4. Запустите Docker Compose `docker compose up --build`.
+5. Проверьте состояние контейнеров `docker compose ps`.
+6. При необходимости загрузки фикстур выполните:
+- `docker compose exec web python manage.py loaddata fixtures/users/groups.json`
+- `docker compose exec web python manage.py loaddata fixtures/users/users_fixture.json`
+- `docker compose exec web python manage.py loaddata fixtures/materials/materials_fixture.json`
+- `docker compose exec web python manage.py loaddata fixtures/users/payments_fixture.json `.
+7. После запуска контейнера приложение доступно по адресу: `http://localhost:8000`.
+8. Далее выполняйте работу с `materials` и `users`.
 
 ## Порядок работы с `materials` и `users`:
 
