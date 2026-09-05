@@ -1,0 +1,84 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$liZsGiSfjThIfBZqVQPahj$Mte80HK7IVb1LaDP5RBze7ySlt/dvm2NWFISn+eAi7o=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-28T17:43:55Z",
+        "email": "user1@rambler.ru",
+        "phone": null,
+        "city": null,
+        "avatar": "",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$zYreAZCHXeWxcYHkLDFmGE$f9aX9FCgo8joKUpKU2YSUH/Y42gVjmhA+Nb76/AenFM=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-28T17:43:55Z",
+        "email": "vvvv@mail.com",
+        "phone": 555555,
+        "city": "Moscow",
+        "avatar": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 13,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$uqYGquOWuzNMphNj3ksXpe$2yenEgyZmJz+yORMyY3xd6b7nmmm2j9eJUwBpiAQV0E=",
+        "last_login": "2026-07-29T17:09:41.173Z",
+        "is_superuser": true,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-07-29T17:09:08.653Z",
+        "email": "vvvvv@mail.ru",
+        "phone": null,
+        "city": null,
+        "avatar": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 14,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$r0ChQgYaabj64KRQRp4ePT$l3X4Pw8wF5E+v6OSahP1UsZx31FxtpEyqcGEMuagMCY=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-31T20:22:34.628Z",
+        "email": "plainuser@ya.ru",
+        "phone": null,
+        "city": null,
+        "avatar": "",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

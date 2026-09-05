@@ -1,0 +1,58 @@
+[
+{
+    "model": "users.payments",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "date": "2026-02-23",
+        "bought_course": 3,
+        "bought_lesson": null,
+        "payment": 1000,
+        "type_payment": "cash",
+        "session_id": null,
+        "link": null
+    }
+},
+{
+    "model": "users.payments",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "date": "2026-05-10",
+        "bought_course": null,
+        "bought_lesson": 5,
+        "payment": 300,
+        "type_payment": "transfer",
+        "session_id": null,
+        "link": null
+    }
+},
+{
+    "model": "users.payments",
+    "pk": 3,
+    "fields": {
+        "user": 2,
+        "date": "2026-06-13",
+        "bought_course": null,
+        "bought_lesson": 4,
+        "payment": 300,
+        "type_payment": "transfer",
+        "session_id": null,
+        "link": null
+    }
+},
+{
+    "model": "users.payments",
+    "pk": 28,
+    "fields": {
+        "user": 2,
+        "date": null,
+        "bought_course": 3,
+        "bought_lesson": null,
+        "payment": 300,
+        "type_payment": null,
+        "session_id": "cs_test_a1S1QK6clMT1vdnBk2RSCMwXaR6EFw3Vk3nHXFYPiMLb1yWsv4RfbJ5J1G",
+        "link": "https://checkout.stripe.com/c/pay/cs_test_a1S1QK6clMT1vdnBk2RSCMwXaR6EFw3Vk3nHXFYPiMLb1yWsv4RfbJ5J1G#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWnFgdnFaMDRQNzNQZ0JzaUk3SGNmPDZoPDxPTmx3Q0NBS39IQEI3QV1HaGpHM2RvX3MzYDc2VTNRMWtPbVxMcmN%2FfFBGZ10zV1V8ZEA3PXZNQ2tmb2Z%2FUjVvT01NY1Q1NTJWNEdsM3drJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJmNjY2NjYycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+    }
+}
+]
