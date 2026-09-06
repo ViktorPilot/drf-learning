@@ -25,4 +25,4 @@ RUN mkdir -p /app/media
 # Пробрасываем порт, который будет использовать Django
 EXPOSE 8000
 # Команда для запуска приложения
-CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
