@@ -84,5 +84,20 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t drf-learning .
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build application image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/drf-learning:latest .
+
+      - name: Push application image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/drf-learning:latest
+
+      - name: Build nginx image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/drf-learning-nginx:latest ./nginx
+
+      - name: Push nginx image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/drf-learning-nginx:latest
