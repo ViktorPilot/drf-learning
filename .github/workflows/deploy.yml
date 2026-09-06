@@ -119,6 +119,8 @@ jobs:
 
             cd ~/drf-learning
 
+            git pull
+
             docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}"
 
             docker compose -f docker-compose.prod.yaml pull
