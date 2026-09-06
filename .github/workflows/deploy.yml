@@ -101,3 +101,28 @@ jobs:
 
       - name: Push nginx image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/drf-learning-nginx:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Deploy to Server
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+
+            cd ~/drf-learning
+
+            docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}"
+
+            docker compose -f docker-compose.prod.yaml pull
+
+            docker compose -f docker-compose.prod.yaml up -d
+
+          EOF

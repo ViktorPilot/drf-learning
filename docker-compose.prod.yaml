@@ -32,7 +32,7 @@ services:
       start_period: 5s
 
   migrate:
-    image: veterwind666/drf-learning:${IMAGE_TAG}
+    image: veterwind666/drf-learning:latest
     container_name: django_migrate
     command: python manage.py migrate
     env_file:
@@ -42,7 +42,7 @@ services:
         condition: service_healthy
 
   web:
-    image: veterwind666/drf-learning:${IMAGE_TAG}
+    image: veterwind666/drf-learning:latest
     restart: unless-stopped
     container_name: materials
     env_file:
@@ -54,7 +54,7 @@ services:
         condition: service_completed_successfully
 
   nginx:
-    image: veterwind666/drf-learning-nginx:${IMAGE_TAG}
+    image: veterwind666/drf-learning-nginx:latest
     restart: unless-stopped
     ports:
       - "80:80"
@@ -64,7 +64,7 @@ services:
       - web
 
   celery:
-    image: veterwind666/drf-learning:${IMAGE_TAG}
+    image: veterwind666/drf-learning:latest
     restart: unless-stopped
     container_name: celery_worker
     command: celery -A config worker -l INFO -P gevent
@@ -77,7 +77,7 @@ services:
         condition: service_healthy
 
   celery_beat:
-    image: veterwind666/drf-learning:${IMAGE_TAG}
+    image: veterwind666/drf-learning:latest
     restart: unless-stopped
     container_name: celery_beat
     command: celery -A config beat -l INFO
