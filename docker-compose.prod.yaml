@@ -32,57 +32,44 @@ services:
       start_period: 5s
 
   migrate:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: veterwind666/drf-learning:latest
     container_name: django_migrate
     command: python manage.py migrate
     env_file:
       - ./.env
-    volumes:
-      - .:/app
     depends_on:
       db:
         condition: service_healthy
 
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: veterwind666/drf-learning:latest
     restart: unless-stopped
     container_name: materials
     env_file:
       - ./.env
     volumes:
-      - .:/app
       - static_volume:/app/staticfiles
     depends_on:
       migrate:
         condition: service_completed_successfully
 
   nginx:
-    build:
-      context: ./nginx
+    image: veterwind666/drf-learning-nginx:latest
     restart: unless-stopped
     ports:
       - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - static_volume:/app/staticfiles
     depends_on:
       - web
 
   celery:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: veterwind666/drf-learning:latest
     restart: unless-stopped
     container_name: celery_worker
     command: celery -A config worker -l INFO -P gevent
     env_file:
       - ./.env
-    volumes:
-      - .:/app
     depends_on:
       migrate:
         condition: service_completed_successfully
@@ -90,16 +77,12 @@ services:
         condition: service_healthy
 
   celery_beat:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: veterwind666/drf-learning:latest
     restart: unless-stopped
     container_name: celery_beat
     command: celery -A config beat -l INFO
     env_file:
       - ./.env
-    volumes:
-      - .:/app
     depends_on:
       migrate:
         condition: service_completed_successfully
